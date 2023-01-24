@@ -2,20 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-/*
-Um componente recebe parâmetros, chamados props (abreviação de propriedades), e retorna uma hierarquia de elementos para exibir através do método render.
-*/
-
 class Square extends React.Component {
   render() {
     return (
 
-      /*
-      O método render retorna uma descrição do que você deseja ver na tela. React recebe a descrição e exibe o resultado.
-      */
+      <button className="square" onClick={()=>{console.log('click');}}>
 
-      <button className="square">
-        {/* TODO */}
+        {/*com onClick = {() => console.log('click')}, estamos passando uma função como prop onClick. O React só chamará essa função depois de um clique.*/}
+
+        {this.props.value} {/* para um componente filho Square*/}
       </button>
     );
   }
@@ -23,7 +18,7 @@ class Square extends React.Component {
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square value={i} />; //passando um “prop” de um componente pai Board...
   }
 
   render() {
@@ -49,20 +44,6 @@ class Board extends React.Component {
         </div>
       </div>
     );
-
-    /*
-    Você pode colocar quaisquer expressões JavaScript dentro de chaves no JSX. Cada elemento React é um objeto JavaScript que você pode armazenar em uma variável ou passar em seu código.
-
-    Temos três componentes React:
-    Quadrado(Square)
-    Tabuleiro(Board)
-    Jogo(Game)
-
-    O componente Board acima apenas renderiza componentes internos do DOM como <div />. Mas você também pode compor e renderizar componentes React personalizados. Por exemplo, agora podemos nos referir a todas as rows do board (cada uma com 3 squares) escrevendo <Board />
-
-    O componente Square renderiza um único <button> e o Board renderiza 9 squares.
-    */
-
   }
 }
 
