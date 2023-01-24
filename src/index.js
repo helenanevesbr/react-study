@@ -3,14 +3,36 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 class Square extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
+  /* Queremos que o componente Square “lembre” que foi clicado e preencha com um “X”. Para “lembrar” as coisas, os componentes usam o estado (state)
+  Vamos armazenar o valor atual do Square em this.state e alterá-lo quando o Square for clicado.
+  Adicionamos um construtor à classe para inicializar o estado.
+  */
+
   render() {
     return (
 
-      <button className="square" onClick={()=>{console.log('click');}}>
+      <button
+        className="square"
+        onClick={() => this.setState({value:'X'})}
+      >
+        {this.state.value}
+      {/* Mudamos o método render do componente Square para exibir o valor do estado (state) atual quando clicado
 
-        {/*com onClick = {() => console.log('click')}, estamos passando uma função como prop onClick. O React só chamará essa função depois de um clique.*/}
+      Ao chamar this.setState a partir de um manipulador onClick no método render do componente Square, nós dizemos ao React para renderizar novamente aquele Square sempre que seu <button> for clicado. Após a atualização, o this.state.value do Square será 'X',
 
-        {this.props.value} {/* para um componente filho Square*/}
+      Quando você chama setState em um componente, o React atualiza automaticamente os componentes filhos
+
+      Árvore de componentes React:
+      Game -> Board -> Square, Square, Square
+      */}
       </button>
     );
   }
