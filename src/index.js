@@ -2,19 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-/* O principal benefício da imutabilidade é que ela ajuda a construir componentes puros em React. Dados imutáveis podem facilmente determinar se foram feitas mudanças, que ajudarão a decidir quando um componente precisa ser re-renderizado. */
-
-class Square extends React.Component {
-  render() {
-    return (
-      <button
-        className="square"
-        onClick={() => this.props.onClick()}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
+  /* Ao invés de definir uma classe Square que extende de React.Component, nós podemos escrever uma função que recebe props como entrada e retorna o que deverá ser renderizado.
+  
+  Componentes de função são os mais simples de serem escritos. Contém apenas um método render e não possuem seu próprio state.
+  */
 }
 
 class Board extends React.Component {
@@ -27,13 +24,6 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-
-    /* Usando o método slice(), criamos uma cópia do array de quadrados para o modificar ao invés de faze-lo no array existente. 
-
-    Evitar mutação nos permite manter o histórico das versões anteriores do jogo intacta e reutiliza-las na nossa "time travel".
-    
-    Essa funcionalidade não está ligada somente ao jogo — uma habilidade de desfazer e refazer certas ações é um requisito comum em aplicações.*/
-
     squares[i] = 'X';
     this.setState({squares: squares});
   }
