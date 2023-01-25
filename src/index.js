@@ -8,10 +8,6 @@ function Square(props) {
       {props.value}
     </button>
   );
-  /* Ao invés de definir uma classe Square que extende de React.Component, nós podemos escrever uma função que recebe props como entrada e retorna o que deverá ser renderizado.
-  
-  Componentes de função são os mais simples de serem escritos. Contém apenas um método render e não possuem seu próprio state.
-  */
 }
 
 class Board extends React.Component {
@@ -19,24 +15,35 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      xIsNext: true,
+      // Sempre que um jogador fizer uma jogada, xIsNext (um boolean) será trocado para determinar qual jogador será o próximo e o state do jogo será salvo.
     };
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-    squares[i] = 'X';
-    this.setState({squares: squares});
+
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    //A função handleClick do Board irá trocar o valor de xIsNext
+
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
   }
 
   renderSquare(i) {
     return (
-      <Square value={this.state.squares[i]}
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
       />
     );
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    // Modificamos o texto de “status” na função render do Board para que ela passe a exibir quem jogará o próximo turno.
 
     return (
       <div>
