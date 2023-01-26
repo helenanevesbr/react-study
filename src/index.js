@@ -2,11 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-/* Vamos armazenar os arrays squares anteriores em um outro array chamado history. O array history representa todos os estados do tabuleiro, da primeira à última jogada,
-
-Colocar o state history no componente Game, nos permite remover o state squares de seu componente filho, Board.
-
-Isso permite que Game instrua o Board a renderizar turnos anteriores a partir do history.
+/* Uma vez que estamos gravando o histórico do Jogo da Velha, agora podemos mostrá-lo para o jogador como uma lista de jogadas anteriores.
+Representando botões na tela, e mostrar uma lista de botões que “pulam” para as jogadas anteriores. 
 */
 
 function Square(props) {
@@ -24,9 +21,6 @@ class Board extends React.Component {
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
-
-        /*O componente Board receba as props squares e onClick do componente Game
-        Passamos a localização de cada Square para o manipulador onClick para indicar qual Square foi clicado */
       />
     );
   }
@@ -34,9 +28,6 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-
-        {/*Uma vez que o componente Game agora está renderizando o status do jogo, nós podemos remover o código correspondente do método render do componente Board. */}
-
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -62,17 +53,17 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true
     };
   }
-  /* configuramos o state inicial do componente Board para o componente Game em seu construtor*/
 
   handleClick(i) {
     const history = this.state.history;
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    /*No componente Game, dentro do método handleClick, nós concatenamos novas entradas do histórico de jogadas em history. */
 
     if (calculateWinner(squares) || squares[i]) {
       return;
@@ -93,14 +84,31 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
+
+    const moves = history.map((step, move) => {
+      /* Utilizando o método map, nós podemos mapear nosso histórico de jogadas para elementos React. Para renderizar múltiplos itens em React, podemos utilizar um array de elementos React.*/
+
+      const desc = move ?
+        'Go to move #' + move :
+        'Go to game start';
+      // À medida que iteramos através do array history, a variável step se refere ao valor do elemento history atual, e move se refere ao índice do elemento history atual.
+
+      return (
+        <li> {/*Para cada jogada no histórico do Jogo da Velha, nós criamos um item de lista <li> ...*/}
+
+          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          {/*O manipulador onClick que chama um método chamado this.jumpTo(). */}
+
+        </li>
+      );
+    });
+
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
-
-    /* A função render do componente Game utiliza a entrada mais recente do histórico (history) para determinar e exibir o status do jogo. */
 
     return (
       <div className="game">
@@ -112,7 +120,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
