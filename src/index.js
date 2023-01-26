@@ -2,25 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-/*  Quando atualizamos uma lista, o React precisa determinar o que mudou.
-Imagine uma transição de...
-  <li>Alexa: 7 tasks left</li>
-  <li>Ben: 5 tasks left</li>
-para...
-  <li>Ben: 9 tasks left</li>
-  <li>Claudia: 8 tasks left</li>
-  <li>Alexa: 5 tasks left</li>
-Um humano lendo isso iria dizer que nós,além de mudarmos a contagem de tasks, trocamos a ordem de Alexa e Ben e inserimos Claudia entre eles. No entanto, React não tem como saber nossas intenções.
-Portanto, precisamos especificar uma propriedade key (chave) para cada item da lista para diferenciá-los entre si.
+/* Se clicarmos em qualquer passo no histórico do jogo, o tabuleiro do Jogo da Velha deve atualizar imediatamente para mostrar como ficou depois que aquele passo ocorreu.
 
-Quando uma lista é re-renderizada, o React pega cada chave e busca nos itens da lista anterior por uma chave correspondente.
-  - Se a lista atual tiver uma chave que ainda não existia, React cria um componente.
-  - Se na lista atual tiver faltando uma chave que já existia na lista anterior, React destrói o componente anterior.
-  - Se as duas chaves combinarem, o componente correspondente é movido.
-Quando um elemento é criado, React extrai a propriedade key e armazena como uma chave diretamente no elemento retornado.
-Entretanto, um componente não pode acessar sua key. Ou seja, key não pode ser referenciado utilizando this.props.keys.
+Para isso, nós...
+  - Adicionamos a propriedade stepNumber ao state do componente Game para indicar qual etapa do jogo estamos visualizando no momento.
 
-Se nenhuma chave for especificada, React vai mostrar um aviso e utilizar, por padrão, o índice do array como chave.
+  - Implementamos o método jumpTo para atualizar o stepNumber ao clicar no <button> "Go to".
+
+  - Modificamos a constante current do método render do componente Game para deixar de renderizar sempre a última jogada e passar a renderizar apenas a jogada selecionada atualmente (baseada em this.state.stepNumber).
+
+  - Modificamos método handleClick para atualizar stepNumber após preenchermos um quadrado do jogo. Desta forma, não ficaremos presos mostrando a mesma jogada após uma nova ter sido feita.
+
+  - Modificamos a constante history no método handleClick para cortar (slice()) a array baseada no stepNumber. Desta maneira, se “voltarmos no tempo” e fizermos um novo movimento a partir desse ponto, jogaremos fora toda a história “futura” que agora estaria incorreta.
 */
 
 function Square(props) {
@@ -73,12 +66,15 @@ class Game extends React.Component {
       history: [{
         squares: Array(9).fill(null),
       }],
+      stepNumber: 0, //adicionamos a propriedade stepNumber ao state inicial do componente Game para indicar qual passo estamos visualizando no momento. Ele reflete a jogada mostrada ao usuário nesse momento.
       xIsNext: true
     };
   }
 
   handleClick(i) {
-    const history = this.state.history;
+
+    const history = this.state.history.slice(0, this.state.stepNumber + 1); //Isso garante que, se “voltarmos no tempo” e fizermos um novo movimento a partir desse ponto, jogaremos fora toda a história “futura” que agora estaria incorreta.
+
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
@@ -92,14 +88,26 @@ class Game extends React.Component {
       history: history.concat([{
         squares: squares,
       }]),
+
+      stepNumber: history.length, //stepNumber reflete a jogada mostrada ao usuário nesse momento. Após fazermos uma nova jogada, precisamos atualizar esse valor. Isso certifica que não ficaremos presos mostrando a mesma jogada após uma novo ter sido feita.
+
       xIsNext: !this.state.xIsNext,
+    });
+  }
+
+  jumpTo(step) {
+    this.setState({ //O jumpTo atualizará o valor em stepNumber
+      stepNumber: step,
+      xIsNext: (step % 2) === 0, //definimos xIsNext para true caso o número que estejamos atribuindo a stepNumber seja par
     });
   }
 
   render() {
 
     const history = this.state.history;
-    const current = history[history.length - 1];
+
+    const current = history[this.state.stepNumber]; // Modificamos o método render do componente Game para deixar de renderizar sempre a última jogada e passar a renderizar apenas a jogada selecionada atualmente, de acordo com stepNumber.
+
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
@@ -109,8 +117,12 @@ class Game extends React.Component {
         'Go to game start';
 
       return (
-        <li>
+        <li key={move}>{/*
+        No histórico do Jogo da Velha, cada jogada anterior tem um único ID associado a ela: é o número sequencial da jogada.
+        As jogadas nunca são reordenadas, apagadas, ou inseridas no meio, então é seguro utilizar o index da jogada como a chave.*/}
+
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
+
         </li>
       );
     });
