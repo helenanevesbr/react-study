@@ -2,8 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-/* Uma vez que estamos gravando o histórico do Jogo da Velha, agora podemos mostrá-lo para o jogador como uma lista de jogadas anteriores.
-Representando botões na tela, e mostrar uma lista de botões que “pulam” para as jogadas anteriores. 
+/*  Quando atualizamos uma lista, o React precisa determinar o que mudou.
+Imagine uma transição de...
+  <li>Alexa: 7 tasks left</li>
+  <li>Ben: 5 tasks left</li>
+para...
+  <li>Ben: 9 tasks left</li>
+  <li>Claudia: 8 tasks left</li>
+  <li>Alexa: 5 tasks left</li>
+Um humano lendo isso iria dizer que nós,além de mudarmos a contagem de tasks, trocamos a ordem de Alexa e Ben e inserimos Claudia entre eles. No entanto, React não tem como saber nossas intenções.
+Portanto, precisamos especificar uma propriedade key (chave) para cada item da lista para diferenciá-los entre si.
+
+Quando uma lista é re-renderizada, o React pega cada chave e busca nos itens da lista anterior por uma chave correspondente.
+  - Se a lista atual tiver uma chave que ainda não existia, React cria um componente.
+  - Se na lista atual tiver faltando uma chave que já existia na lista anterior, React destrói o componente anterior.
+  - Se as duas chaves combinarem, o componente correspondente é movido.
+Quando um elemento é criado, React extrai a propriedade key e armazena como uma chave diretamente no elemento retornado.
+Entretanto, um componente não pode acessar sua key. Ou seja, key não pode ser referenciado utilizando this.props.keys.
+
+Se nenhuma chave for especificada, React vai mostrar um aviso e utilizar, por padrão, o índice do array como chave.
 */
 
 function Square(props) {
@@ -86,19 +103,14 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      /* Utilizando o método map, nós podemos mapear nosso histórico de jogadas para elementos React. Para renderizar múltiplos itens em React, podemos utilizar um array de elementos React.*/
 
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
-      // À medida que iteramos através do array history, a variável step se refere ao valor do elemento history atual, e move se refere ao índice do elemento history atual.
 
       return (
-        <li> {/*Para cada jogada no histórico do Jogo da Velha, nós criamos um item de lista <li> ...*/}
-
+        <li>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
-          {/*O manipulador onClick que chama um método chamado this.jumpTo(). */}
-
         </li>
       );
     });
