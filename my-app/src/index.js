@@ -2,8 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 function Greeting(){
-    return <h2>My First Component</h2>
+    return <div>
+        <Person/>
+        <Message/>
+        {/*Nest components*/}
+    </div>
 }
+
+const Person = () => <h2>john doe</h2>; //implicit return is possible
+const Message = () => { //however if you use brackets, you need explicit return
+    return <p>this is my message</p>
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
