@@ -11,7 +11,6 @@ body{
 }
 
 .booklist {
-    /* className from React behave simmilar to class. Same dot.*/
     width: 90vw;
     max-width: 1170px;
     margin: 5rem auto;
@@ -41,3 +40,10 @@ body{
     margin-top: 1rem;
     font-size: 1rem;
 }
+
+.book h4 {
+    /* won't work - Author component has color defined for h4 in it's in-line css.*/
+    color: red;
+    /* will work. No conflict between external and internal CSS */
+    letter-spacing: 2px;
+  }
