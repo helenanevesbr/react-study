@@ -34,10 +34,18 @@ const Image = () => <h2>
 const Title = () => <h2>Lessons in Chemistry: A Novel</h2>;
 
 const Author = () => {
+
+    const inlineHeadingStyles = {
+        color: '#617d98',
+        fontSize: '0.75rem',
+        marginTop: '0.5rem',
+      };
+    {/*The styles we added at component Author are, essentially, key/value pairs  of an object. Therefore, we an add them as an object apart from the h4 element
+    */}
+
     return (
         <h4
-        style={{color:'#617d98', fontSize: '0.75rem', marginTop: '0.5rem'}}>
-            {/*{} in JSX means going back to JS Land. That's how we add styles using JSX instead of external stylesheets (CSS). That's also how we wrote this comment*/}
+        style={inlineHeadingStyles}>
             Bonnie Garmus
         </h4>
     );
