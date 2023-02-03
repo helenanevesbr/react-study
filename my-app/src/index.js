@@ -32,16 +32,13 @@ function BookList() {
     );
 }
 
-const Book = (props) => {
+const Book = ({ img, title, author }) => {   /* Another way to destructure the props object to save time/typing is to destructure it inside function parameters */
 
-  const { img, title, author } = props;
-  /* If we destructure the props object like this, we save time/typing...*/
+  // const { img, title, author } = props; --- this was the 2nd approach to destructure the object: we did it inside the component.
 
   return (
     <article className='book'>
-      
-      <img src={img} alt={title} /> {/* ... because we don't need to reference object anymore. Eg "src={props.img}" */}
-
+      <img src={img} alt={title} />
       <h2>{title}</h2>
       <h4>{author} </h4>
     </article>
