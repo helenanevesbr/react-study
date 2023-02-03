@@ -3,15 +3,36 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 
-const title = "Lessons in Chemistry: A Novel"
-const author = "Bonnie Garmus"
-const img = './images/lessonsinchesmitry.jpg'
+/* each Book in the Booklist will be an object.
+We will refactor const title, author, etc to properties this object. */
+
+const firstBook = {
+  author: 'Jordan Moore',
+  title: 'Interesting Facts For Curious Minds',
+  img: './images/interestingfactsforthecuriousmind.jpg',
+};
+
+const secondBook = {
+  title: "Lessons in Chemistry: A Novel",
+  author: "Bonnie Garmus",
+  img: './images/lessonsinchesmitry.jpg',
+}
 
 function BookList() {
     return (
       <section className='booklist'>
-        <Book author={author} title={title} img={img} />
-        <Book title={title} img={img} />
+
+        <Book
+          author={firstBook.author}
+          title={firstBook.title}
+          img={firstBook.img} />
+        <Book
+          author={secondBook.author}
+          title={secondBook.title}
+          img={secondBook.img} />
+
+        {/* Atribuimos valores das propriedades dos objetos firstBook e secondBook e como props do componente Book*/}
+
       </section>
     );
 }
