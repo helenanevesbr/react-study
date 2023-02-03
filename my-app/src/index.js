@@ -3,42 +3,36 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 
+const title = "Lessons in Chemistry: A Novel"
+const author = "Bonnie Garmus"
+const img = './images/lessonsinchesmitry.jpg'
+
 const BookList = () => {
     return (
         <section className='booklist'>
-            <Book />
-            <Book />
-            <Book />
-            <Book />
+
+            <Book job='developer' />
+            <Book title='random title' number={22} />
+
+            {/*props works simmilar to arguments, parameters and function.
+            In that analogy, the root component, BookList is the function calling passing arguments, and Book component is the function recieving those arguments.*/}
+
         </section>
     );
 };
 
-const Book = () => {
-
-    const title = "Lessons in Chemistry: A Novel"
-    const author = "Bonnie Garmus"
-
+const Book = (props) => {
     return (
       <article className='book'>
-        <img
-          src='./images/lessonsinchesmitry.jpg'
-          alt='Lessons in Chemistry: A Novel'
-        />
+        <img src={img} alt={title} />
         <h2>{title}</h2>
-        <h4>{author.toUpperCase()}</h4>
-
-        {/* value inside must be an expression (return value), can't be a statement.
-        For instance, if we try to declare a variable inside like this <p>{let x = 6}</p>, it will throw an error
-        But <p>{6+6}, because 6+6 returns a value
-        Im a nutsheel, it behaves simmilarly to console.log</p>,
-        */}
-
+        <h4>{author}</h4>
+        <p>{props.job}</p> {/* props works like an object. Props is the object, job is the property, developer is the value */}
+        <p>{props.title}</p> {/* First Book component doesn't have a title prop. If the prop exists, it will return value, otherwise no value. */}
+        <p>{props.number}</p>
       </article>
     );
 };
-
-/* refactor to single book component (personal preference) */
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
