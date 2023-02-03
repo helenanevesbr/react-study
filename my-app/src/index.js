@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 
-/* each Book in the Booklist will be an object.
-We will refactor const title, author, etc to properties this object. */
-
 const firstBook = {
   author: 'Jordan Moore',
   title: 'Interesting Facts For Curious Minds',
@@ -31,20 +28,24 @@ function BookList() {
           title={secondBook.title}
           img={secondBook.img} />
 
-        {/* Atribuimos valores das propriedades dos objetos firstBook e secondBook e como props do componente Book*/}
-
       </section>
     );
 }
 
 const Book = (props) => {
-    return (
-      <article className='book'>
-        <img src={props.img} alt={props.title} />
-        <h2>{props.title}</h2>
-        <h4>{props.author} </h4>
-      </article>
-    );
+
+  const { img, title, author } = props;
+  /* If we destructure the props object like this, we save time/typing...*/
+
+  return (
+    <article className='book'>
+      
+      <img src={img} alt={title} /> {/* ... because we don't need to reference object anymore. Eg "src={props.img}" */}
+
+      <h2>{title}</h2>
+      <h4>{author} </h4>
+    </article>
+  );
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
