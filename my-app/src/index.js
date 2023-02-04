@@ -27,10 +27,7 @@ function BookList() {
       {books.map((book)=>{
         return <Book
 
-          book={book}
-          /*props book, therefore, is a object which contains another object.
-          book:{book:{author: title: [...] }}.
-          So, in order to pull the properties (img, title) out...*/
+          {...book} //utilize spread operator (...) - copy values
 
           key={book.id}
         />;
@@ -40,8 +37,7 @@ function BookList() {
   );
 }
 
-const Book = ({ book: {img, title, author}}) => { //... object book needs to be be destructured. This is the way to do it if you are deconstructing props in the function parameters.
-
+const Book = ({img, title, author}) => {
   return (
     <article className='book'>
       <img src={img} alt={title} />
