@@ -20,21 +20,19 @@ const books = [
 
 ]
 
-/* every time you render a list of items in React, React wants to keep track of those items using a Key prop.
-Basically it's the item's id, a value unique to the item that you can find inside the array and it's passed as a prop to the component which will render the item.*/
-
 function BookList() {
   return (
     <section className='booklist'>
 
       {books.map((book)=>{
-        console.log(book);
-        const {img, title, author, id} = book;
         return <Book
-          img={img}
-          title={title}
-          author={author}
-          key={id} //Set the key prop on the main return, so it's passed down to the Book component
+
+          book={book}
+          /*props book, therefore, is a object which contains another object.
+          book:{book:{author: title: [...] }}.
+          So, in order to pull the properties (img, title) out...*/
+
+          key={book.id}
         />;
       })}
 
@@ -42,7 +40,8 @@ function BookList() {
   );
 }
 
-const Book = ({ img, title, author}) => {
+const Book = ({ book: {img, title, author}}) => { //... object book needs to be be destructured. This is the way to do it if you are deconstructing props in the function parameters.
+
   return (
     <article className='book'>
       <img src={img} alt={title} />
