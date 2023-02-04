@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 
+/* Even though we can nicely return HTML elements directly in our callback function, the book component already has the HTML structure that we need. To render it, the component is simply looking for the props: img, title and author.*/
+
 const books = [
   {
     author: 'Jordan Moore',
@@ -19,26 +21,25 @@ const books = [
 ]
 
 function BookList() {
-    return (
-      <section className='booklist'>
+  return (
+    <section className='booklist'>
 
-      {/* {books}
-      </section>
+      {books.map((book)=>{
 
-      React can't render objects like books directly - this would thrown an error.
-      */}
+        const {img, title, author} = book; /* Destructured book */
 
-        {books.map((book)=>{
-          return <div><h2>{book.title}</h2></div>
-        })}
-        {/*
-        The map function creates a new array from calling a function for every array element. Therefore, it creates a callback function for every item in the array.
-        It will iterate over each object of the array books. That's how we will pull out the properties of these objects.
-        Not only can React render an object (indirectly) like this, but it can also wrap the properties of these objects on a HTML structure - div, h1, etc).
-        */}
+        return <Book
 
-      </section>
-    );
+          img={img}
+          title={title}
+          author={author}
+          /*So I'm rendering now the Book component and passing the properties of object book one by one as props.
+          In a future refactoring, I'll pass the entire object, or I can spread out the properties. But for now, let's just go one by one. */
+
+        />
+      })}
+    </section>
+  );
 }
 
 const Book = ({ img, title, author}) => {
