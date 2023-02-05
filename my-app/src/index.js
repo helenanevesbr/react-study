@@ -39,27 +39,15 @@ function BookList() {
 
 const EventExamples = () =>{
 
-  {/*In JS the function triggered by the event is called callback function.
-  In React, it's called referenced function - a React event inside a React element references a function.
-  In this case, the functions are handleFormInput and handleButtonClick*/}
-
-  const handleFormInput = (e) => {
-    /*In JS, a callback function has access to an Event Object. In React, it's no different.
-    This referenced function has recieved the Event Object as an argument, which we've randomly named "e"
-
-    console.log(typeof e); --> object
-
-    To better understand the Event Object and it's pŕoperties (which are configured by React), we will log some of them in our console:
-    */
-
-    console.log(e.target); // <input type="text" name="example" style="margin: 1rem 0px;">
-    console.log(e.target.name); // 'example'
-    console.log(e.target.value); // 'this is the text I've typed'
+  /*const handleFormInput = () => {
     console.log('handle form input');
   };
   const handleButtonClick = () => {
     alert('handle button click');
   };
+
+  Instead of setting up these functions here, we can pass them as anonymous functions (in this case, arrow functionsy into the React element...
+  */
   
   return <section>
     <form>
@@ -67,11 +55,13 @@ const EventExamples = () =>{
       <input
         type='text'
         name='example'
-        onChange={handleFormInput}
+        onChange={()=> console.log('handle form input')} /*... like this... */
         style={{ margin: '1rem 0'}}
       />
     </form>
-    <button onClick={handleButtonClick}>click me</button>
+    <button onClick={() => alert('handle button click')}> {/*... and this */}
+      click me
+    </button>
   </section>
 }
 
