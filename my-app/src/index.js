@@ -46,7 +46,7 @@ const EventExamples = () =>{
     alert('handle button click');
   };
 
-  Instead of setting up these functions here, we can pass them as anonymous functions (in this case, arrow functionsy into the React element...
+  Instead of setting up these functions here, we can pass them as anonymous functions (in this case, arrow functions into the event handler attribute (onChange or onClick) of the React element...
   */
   
   return <section>
