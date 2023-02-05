@@ -23,53 +23,30 @@ const books = [
 function BookList() {
   return (
     <section className='booklist'>
-
-      <EventExamples />
-
       {books.map((book)=>{
         return <Book
           {...book}
           key={book.id}
         />;
       })}
-
     </section>
   );
 }
 
-const EventExamples = () =>{
-
-  /*const handleFormInput = () => {
-    console.log('handle form input');
-  };
-  const handleButtonClick = () => {
-    alert('handle button click');
-  };
-
-  Instead of setting up these functions here, we can pass them as anonymous functions (in this case, arrow functions into the event handler attribute (onChange or onClick) of the React element...
-  */
-  
-  return <section>
-    <form>
-      <h2>Typical form</h2>
-      <input
-        type='text'
-        name='example'
-        onChange={()=> console.log('handle form input')} /*... like this... */
-        style={{ margin: '1rem 0'}}
-      />
-    </form>
-    <button onClick={() => alert('handle button click')}> {/*... and this */}
-      click me
-    </button>
-  </section>
-}
-
 const Book = ({img, title, author}) => {
+
+  const displayTitle = () => {
+    console.log(title);
+  };
+  /*In JS, to have a button "display title" for each book in a book list would require more code.
+  Because each button can only reference the info of one item in a array. You'd have to add lots of forEach() methods in order to itinerate.
+  In React, however, we can just set the function and button in the Book component, because it already has the props of one Book independent from the other books. */
+
   return (
     <article className='book'>
       <img src={img} alt={title} />
       <h2>{title}</h2>
+      <button onClick={displayTitle}>display title</button>
       <h4>{author} </h4>
     </article>
   );
