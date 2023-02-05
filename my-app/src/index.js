@@ -39,13 +39,27 @@ function BookList() {
 
 const EventExamples = () =>{
 
-  const handleFormInput = () => {
+  {/*In JS the function triggered by the event is called callback function.
+  In React, it's called referenced function - a React event inside a React element references a function.
+  In this case, the functions are handleFormInput and handleButtonClick*/}
+
+  const handleFormInput = (e) => {
+    /*In JS, a callback function has access to an Event Object. In React, it's no different.
+    This referenced function has recieved the Event Object as an argument, which we've randomly named "e"
+
+    console.log(typeof e); --> object
+
+    To better understand the Event Object and it's pŕoperties (which are configured by React), we will log some of them in our console:
+    */
+
+    console.log(e.target); // <input type="text" name="example" style="margin: 1rem 0px;">
+    console.log(e.target.name); // 'example'
+    console.log(e.target.value); // 'this is the text I've typed'
     console.log('handle form input');
   };
   const handleButtonClick = () => {
     alert('handle button click');
   };
-  /* The place where we set up the function is irrelevant. They can be inside of the component, they can be outside of the component, they can be coming from another file.*/
   
   return <section>
     <form>
@@ -57,21 +71,7 @@ const EventExamples = () =>{
         style={{ margin: '1rem 0'}}
       />
     </form>
-    <button onClick={handleButtonClick}>click me</button> {/* onClick is a React Event*/}
-    {/*
-    In React, the element is located in the JSX in the component and the function that gets triggered when the event (OnClick) fires can be anywhere.
-
-
-    This is how it would look like in JS:
-
-      const btn = document.getElementById('btn');
-
-      btn.addEventListener('click', function (e) {
-        // access event object. In the callback function we can access the event object which contains, for example, the element we're selecting, what value is inside of it.
-        // do something when event fires
-    });
-    */}
-
+    <button onClick={handleButtonClick}>click me</button>
   </section>
 }
 
