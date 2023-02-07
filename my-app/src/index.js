@@ -4,13 +4,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 import { books } from './books';
-/*named export - This export statement is useful when the imported file has more than one data.
-Names MUST match - that means ~import { *name* }~ must be the same as ~export *name*~
-*/
 
 import Book from './Book';
-/*with default exports, the exported data can be renamed inside the imported file.
-However, there can be only one exported data per file */
 
 function BookList() {
   return (

@@ -8,4 +8,4 @@ const Book = ({img, title, author}) => {
     );
 };
 
-export default Book; //default export - it's a type of export statement
+export default Book;
