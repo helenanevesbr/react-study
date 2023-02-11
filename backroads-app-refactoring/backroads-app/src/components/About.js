@@ -6,7 +6,6 @@ const About = () => {
     <section className="section" id="about">
 
       <Title title='about' subTitle='us'/>
-      {/* passing values 'about' and 'us' as props so that Title components renders this section's Title */}
 
       <div className="section-center about-center">
         <div className="about-img">

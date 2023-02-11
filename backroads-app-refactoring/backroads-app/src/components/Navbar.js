@@ -30,7 +30,7 @@ const Navbar = () => {
               <li key={link.id}>
                 <a href={link.href}
                   target="_blank"
-                  rel='noreferrer' /*In React, for security's sake, we need to add this line*/
+                  rel='noreferrer'
                   className="nav-icon">
                   <i className={link.icon}></i>
                 </a>
