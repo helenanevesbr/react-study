@@ -3,8 +3,6 @@ import tour2 from './images/tour-2.jpeg'
 import tour3 from './images/tour-3.jpeg'
 import tour4 from './images/tour-4.jpeg'
 
-/* Instead of that static path which worked in HTML. Now we have dynamic input, like we did in Navbar.js */
-
 export const pageLinks = [
     { id: 1, href: '#home', text: 'home' },
     { id: 2, href: '#about', text: 'about' },
