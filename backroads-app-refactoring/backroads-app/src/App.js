@@ -14,7 +14,6 @@ function App() {
     <Tours/>
     <Footer/>
   </>;
-  //import and render all components in App.js
 }
 
 export default App;
