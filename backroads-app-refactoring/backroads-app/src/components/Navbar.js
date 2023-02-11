@@ -1,9 +1,17 @@
+import logo from '../images/logo.svg'
+//setup import from images and update source
+
 const Navbar = () => {
   return(
     <nav className="navbar">
       <div className="nav-center">
         <div className="nav-header">
-          <img src="./images/logo.svg" className="nav-logo" alt="backroads" />
+
+          <img src={logo} className="nav-logo" alt="backroads" />
+          {/*// <img scr = "./images/logo.svg" />
+          Instead of that static path which worked in HTML. Now we have dynamic input.
+          */}
+          
           <button type="button" className="nav-toggle" id="nav-toggle">
             <i className="fas fa-bars"></i>
           </button>
