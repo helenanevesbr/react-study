@@ -8,7 +8,6 @@ const Footer = () => {
       <PageLinks
         parentClass='footer-links'
         itemClass='footer-link'/>
-        {/*In order to have the correct CSS to a child component that itinerates data, we need to pass strings as props to the component*/}
 
       <ul className="footer-icons">
         {socialLinks.map((link)=>{
