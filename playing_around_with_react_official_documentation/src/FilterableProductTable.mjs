@@ -1,24 +1,32 @@
 export function ProductRow({ product }) {
     return (
-        <table>
+        PRODUCTS.map(product=>
             <tr>
-                <th>Company</th>
-                <th>Contact</th>
-                <th>Country</th>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
             </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-            </tr>
-            <tr>
-                <td>Centro comercial Moctezuma</td>
-                <td>Francisco Chang</td>
-                <td>Mexico</td>
-            </tr>
-        </table>
+        )
     )
-  }
+}
+
+{/* <table>
+<tr>
+
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+</tr>
+<tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+</tr>
+<tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+</tr>
+</table> */}
 
 const PRODUCTS = [
     {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
