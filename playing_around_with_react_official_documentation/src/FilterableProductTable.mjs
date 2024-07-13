@@ -9,6 +9,16 @@ export function ProductRow({ product }) {
     )
 }
 
+export function ProductCategoryRow({ product }) {
+    return (
+        PRODUCTS.map(product=>
+            <tr>
+                <td>{product.category}</td>
+            </tr>
+        )
+    )
+}
+
 {/* <table>
 <tr>
 
