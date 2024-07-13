@@ -1,4 +1,4 @@
-export function ProductRow({ product }) {
+function ProductRow({ product }) {
     return (
         PRODUCTS.map(product=>
             <tr>
@@ -9,13 +9,22 @@ export function ProductRow({ product }) {
     )
 }
 
-export function ProductCategoryRow({ product }) {
+function ProductCategoryRow({ product }) {
     return (
         PRODUCTS.map(product=>
             <tr>
                 <td>{product.category}</td>
             </tr>
         )
+    )
+}
+
+export function ProductTable({ product }) {
+    return (
+        <table>
+            <ProductCategoryRow />
+            <ProductRow />
+        </table>
     )
 }
 

@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 
 import {MyButtons, Profile, ShoppingList} from "./App.mjs";
-import {ProductRow,ProductCategoryRow} from "./FilterableProductTable.mjs"
+import {ProductTable} from "./FilterableProductTable.mjs"
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -11,7 +11,6 @@ root.render(
     <Profile />
     <MyButtons />
     <ShoppingList />
-    <ProductCategoryRow />
-    <ProductRow />
+    <ProductTable />
   </StrictMode>
 );
