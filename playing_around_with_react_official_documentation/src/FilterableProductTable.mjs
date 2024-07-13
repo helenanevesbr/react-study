@@ -9,20 +9,33 @@ function ProductRow({ products }) {
     )
 }
 
-function ProductCategoryRow({ products }) {
+function ProductCategoryRow({ category }) {
     return (
-        products.map(product=>
-            <tr>
-                <td>{product.category}</td>
-            </tr>
-        )
+        <tr>
+            <th>{category}</th>
+        </tr>
     )
 }
 
 export function ProductTable() {
+
+    let categories = PRODUCTS.reduce((acumulo, product) => {
+        if (!acumulo[product.category]){
+            acumulo[product.category] = []; // Se categoria ainda não existe como chave do dict, adicionar chave e criar lista vazia
+        }
+        acumulo[product.category].push(product); // Agrupar dados do produto (dict) na categoria (list) a qual ele pertence
+        return acumulo;
+    }, {});
+
+    let linhaCategoriaOuProduto = []
+
+    Object.keys(categories).map(category=>
+        linhaCategoriaOuProduto.push(<ProductCategoryRow category={category}/>)
+    )
+
     return (
         <table>
-            <ProductCategoryRow products={PRODUCTS}/>
+            {linhaCategoriaOuProduto}
             <ProductRow products={PRODUCTS}/>
         </table>
     )
