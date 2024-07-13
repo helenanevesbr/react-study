@@ -1,6 +1,6 @@
-function ProductRow({ product }) {
+function ProductRow({ products }) {
     return (
-        PRODUCTS.map(product=>
+        products.map(product=>
             <tr>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
@@ -9,9 +9,9 @@ function ProductRow({ product }) {
     )
 }
 
-function ProductCategoryRow({ product }) {
+function ProductCategoryRow({ products }) {
     return (
-        PRODUCTS.map(product=>
+        products.map(product=>
             <tr>
                 <td>{product.category}</td>
             </tr>
@@ -19,11 +19,11 @@ function ProductCategoryRow({ product }) {
     )
 }
 
-export function ProductTable({ product }) {
+export function ProductTable() {
     return (
         <table>
-            <ProductCategoryRow />
-            <ProductRow />
+            <ProductCategoryRow products={PRODUCTS}/>
+            <ProductRow products={PRODUCTS}/>
         </table>
     )
 }
