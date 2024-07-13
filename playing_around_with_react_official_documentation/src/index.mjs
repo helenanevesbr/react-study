@@ -10,7 +10,6 @@ root.render(
   <StrictMode>
     <Profile />
     <MyButtons />
-    <ShoppingList />
     <ProductTable />
   </StrictMode>
 );
