@@ -36,7 +36,7 @@ function groupProductTableComponents(produtsByCategory){
 function ProductRow({ product }) {
     let name = product.stocked ? product.name : <span style={{color:'red'}}>{product.name}</span>
     return (
-        <tr>
+        <tr key={name}>
             <td>{name}</td>
             <td>{product.price}</td>
         </tr>
@@ -47,21 +47,21 @@ function ProductRow({ product }) {
 function ProductCategoryRow({ category }) {
     return (
         <tr>
-            <th colSpan='2'>{category}</th>
+            <th colSpan='2' key={category}>{category}</th>
         </tr>
     )
 }
 
 
-export function ProductTable() {
+function ProductTable(products) {
 
-    let produtsByCategory = groupProductsByCategory(PRODUCTS)
+    let produtsByCategory = groupProductsByCategory(products.products)
     let rowsForCategoryOrProduct = groupProductTableComponents(produtsByCategory=produtsByCategory)
 
     return (
         <table>
             <thead>
-                <tr>
+                <tr key="header">
                     <th>Name</th>
                     <th>Price</th>
                 </tr>
@@ -74,7 +74,7 @@ export function ProductTable() {
 }
 
 
-export function SearchBar() {
+function SearchBar() {
     return (
         <form>
             <input type="text" placeholder="Search..."></input>
@@ -86,3 +86,11 @@ export function SearchBar() {
     )
 }
 
+export function FilterableProductTable(){
+    return (
+        <div>
+            <SearchBar />
+            <ProductTable products={PRODUCTS} />
+        </div>
+    )
+}
