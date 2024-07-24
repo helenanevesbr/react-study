@@ -27,13 +27,16 @@ function groupProductTableComponents(
     inStockOnly
 ){
     let rowsForCategoryOrProduct = []
-    const filteredProducts = [1]
     Object.keys(productsByCategory).map(category=>{
+        const filteredProducts = productsByCategory[category].filter(product => {
+            const matchesFilterText = product.name.toLowerCase().includes(filterText.toLowerCase())
+            return matchesFilterText
+        })
         if (filteredProducts.length > 0) {    
             // Linha heading com categoria
             rowsForCategoryOrProduct.push(<ProductCategoryRow category={category}/>)
             // Linhas com dados dos produtos daquela categoria
-            productsByCategory[category].map(product=>
+            filteredProducts.map(product=>
                 rowsForCategoryOrProduct.push(<ProductRow product={product}/>)
             )
         }
@@ -129,6 +132,7 @@ export function FilterableProductTable(){
                 onInStockOnlyChange={setInStockOnly} />
             <ProductTable
                 products={PRODUCTS}
+                filterText={filterText}
                 inStockOnly={inStockOnly} />
         </div>
     )
