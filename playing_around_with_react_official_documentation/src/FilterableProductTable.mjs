@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const PRODUCTS = [
     {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
     {category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit"},
@@ -53,9 +55,9 @@ function ProductCategoryRow({ category }) {
 }
 
 
-function ProductTable(products) {
+function ProductTable({ products }) {
 
-    let produtsByCategory = groupProductsByCategory(products.products)
+    let produtsByCategory = groupProductsByCategory(products)
     let rowsForCategoryOrProduct = groupProductTableComponents(produtsByCategory=produtsByCategory)
 
     return (
@@ -74,12 +76,24 @@ function ProductTable(products) {
 }
 
 
-function SearchBar() {
+function SearchBar({
+    filterText,
+    inStockOnly,
+    onFilterTextChange,
+    onInStockOnlyChange
+}) {
     return (
         <form>
-            <input type="text" placeholder="Search..."></input>
+            <input
+                type="text"
+                value={filterText}
+                placeholder="Search..."
+                onChange={(e)=>onFilterTextChange(e.target.value)} />
             <label>
-                <input type="checkbox"></input>
+                <input
+                    type="checkbox"
+                    checked={inStockOnly}
+                    onChange={(e)=>onInStockOnlyChange(e.target.value)}/>
                 Only show products in stock
             </label>
         </form>
@@ -87,10 +101,20 @@ function SearchBar() {
 }
 
 export function FilterableProductTable(){
+
+    const [filterText, setFilterText] = useState('');
+    const [inStockOnly, setInStockOnly] = useState(false);
+
     return (
         <div>
-            <SearchBar />
-            <ProductTable products={PRODUCTS} />
+            <SearchBar
+                filterText={filterText}
+                inStockOnly={inStockOnly}
+                onFilterTextChange={setFilterText}
+                onInStockOnlyChange={setInStockOnly} />
+            <ProductTable
+                products={PRODUCTS}
+                inStockOnly={inStockOnly} />
         </div>
     )
 }
