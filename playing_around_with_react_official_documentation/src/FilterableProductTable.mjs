@@ -22,18 +22,18 @@ function groupProductsByCategory(uncategorizedProducts){
 }
 
 function groupProductTableComponents(
-    produtsByCategory,
+    productsByCategory,
     filterText,
     inStockOnly
 ){
     let rowsForCategoryOrProduct = []
     const filteredProducts = [1]
-    Object.keys(produtsByCategory).map(category=>{
+    Object.keys(productsByCategory).map(category=>{
         if (filteredProducts.length > 0) {    
             // Linha heading com categoria
             rowsForCategoryOrProduct.push(<ProductCategoryRow category={category}/>)
             // Linhas com dados dos produtos daquela categoria
-            produtsByCategory[category].map(product=>
+            productsByCategory[category].map(product=>
                 rowsForCategoryOrProduct.push(<ProductRow product={product}/>)
             )
         }
@@ -68,9 +68,9 @@ function ProductTable({
     inStockOnly
 }) {
 
-    let produtsByCategory = groupProductsByCategory(products);
+    let productsByCategory = groupProductsByCategory(products);
     let rowsForCategoryOrProduct = groupProductTableComponents(
-        produtsByCategory=produtsByCategory,
+        productsByCategory=productsByCategory,
         filterText=filterText,
         inStockOnly=inStockOnly
     );
