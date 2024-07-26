@@ -30,7 +30,7 @@ function groupProductTableComponents(
     Object.keys(productsByCategory).map(category=>{
         const filteredProducts = productsByCategory[category].filter(product => {
             const matchesFilterText = product.name.toLowerCase().includes(filterText.toLowerCase())
-            return matchesFilterText
+            return matchesFilterText && (!inStockOnly || product.stocked);
         })
         if (filteredProducts.length > 0) {    
             // Linha heading com categoria
@@ -111,7 +111,7 @@ function SearchBar({
                 <input
                     type="checkbox"
                     checked={inStockOnly}
-                    onChange={(e)=>onInStockOnlyChange(e.target.value)}/>
+                    onChange={(e)=>onInStockOnlyChange(e.target.checked)}/>
                 Only show products in stock
             </label>
         </form>
